@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import { CustomerAdd } from './components/CustomerAdd';
 
 const useStyles = makeStyles({
   root: {
@@ -125,7 +126,8 @@ function App() {
   };
 
   return (
-    <Paper className={classes.root}>
+    <div>
+      <Paper className={classes.root}>
       <Table  className={classes.table}>
         <TableHead>
         <TableRow>
@@ -151,6 +153,8 @@ function App() {
       </Table>
       
     </Paper>
+    <CustomerAdd />
+    </div>
   );
 }
 
