@@ -8,6 +8,7 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import {makeStyles} from '@mui/styles';
 import Paper from '@mui/material/Paper';
+import { useEffect, useState } from 'react';
 
 const useStyles = makeStyles({
   root: {
@@ -19,7 +20,7 @@ const useStyles = makeStyles({
     minWidth: 1080
   }
 })
-const customer = [
+/* const customer = [
   {
     'id': 1,
     'image': 'https://placeimg.com/64/64/1',
@@ -60,9 +61,21 @@ const customer = [
     'gender': '여자',
     'job': '친구',
   }
-]
+] */
 function App() {
   const classes = useStyles();
+  const [customers, setCustomers] = useState([]);
+  useEffect(()=> {
+    callApi()
+    .then(res => setCustomers(res))      
+  }, []);
+
+  const callApi = async() =>{
+     const response = await fetch('/api/customers');
+     const body = await response.json();
+     return body;
+  };
+
   return (
     <Paper className={classes.root}>
       <Table  className={classes.table}>
@@ -78,9 +91,9 @@ function App() {
         </TableHead>
         <TableBody>
         {
-        customer.map(c=> {
+        customers? customers.map(c=> {
           return <Customer key={c.id} id={c.id} image={c.image} name={c.name} birthday={c.birthday} gender={c.gender} job={c.job} />
-        })
+        }) : ""
       }
         </TableBody>
       </Table>
